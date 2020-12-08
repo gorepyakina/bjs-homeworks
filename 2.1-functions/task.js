@@ -42,28 +42,29 @@ showSolutionsMessage(2, 4, 2);
 console.log();
 
 // Задача 2
-
 function getAverageScore(data) {
-  data.average = getAverageMark(data);
-  return data;
+  let result = new Object();
+  let averageMarks = [];
+  for (let key in data) {
+    result[key] = getAverageMark(data[key]);
+    averageMarks.push(result[key]);
+  }
+  result.average = getAverageMark(averageMarks);
+  
+  return result;
 }
 
+
 function getAverageMark(marks) {
-  let count = 0;
-  for (let key in marks) {
-    count++;
+  let sum = 0;
+  if (marks.length === 0) {
+    return 0;
   }
-  let average = 0;
-  for (let key in marks) {
-    let sum = 0;
-    for (let i = 0; i < marks[key].length; i++) {
-      sum += marks[key][i] / marks[key].length;
-      average += (marks[key][i] / marks[key].length) / count;
-    }
-    marks[key] = sum;
+  for (let i = 0; i < marks.length; i++) {
+    sum += parseInt(marks[i]);
   }
-  marks.average = average;
-  return marks.average;
+
+  return sum / marks.length;
 }
 
 getAverageScore({
@@ -80,20 +81,10 @@ getAverageScore({
 
 
 // Задача 3
-
-function getPersonData(secretData) {
-  return getDecodedValue(secretData);
-}
-
 let pirate = new Object();
 
-function getDecodedValue(secretData) {
-  if (secretData === 0) {
-    return 'Родриго';
-  }
-  if (secretData === 1) {
-    return 'Эмильо';
-  }
+function getPersonData(secretData) {
+  getDecodedValue(secretData);
   for (let key in secretData) {
     if (key === 'aaa') {
       if (secretData[key] == 0) {
@@ -111,6 +102,11 @@ function getDecodedValue(secretData) {
     }
   }
   return pirate;
+}
+
+function getDecodedValue(secretData) {
+  let decode = secretData === 0 ? 'Родриго' : 'Эмильо';
+  return decode;
 }
 
 console.log(getPersonData({
