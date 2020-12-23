@@ -92,6 +92,7 @@ class Library {
         let find = this.findBookBy("name", bookName);
         if (find !== null) {
             this.books.splice(this.books.indexOf(find), 1);
+            return find;
         } else {
             return null;
         }
