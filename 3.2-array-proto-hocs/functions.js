@@ -56,10 +56,10 @@ function memorize(fn, limit) {
     const memory = [];
     return function () {
         const item = memory.find(item => compareArrays(item.args, arguments));
-        let result = fn(...arguments);
-        if (item !== undefined) {
+        if (item) {
             return item.result;
         }
+        let result = fn(...arguments);
         memory.push({args: arguments, result});
         if (memory.length >= limit) {
             memory.unshift();
