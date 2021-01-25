@@ -24,8 +24,9 @@ class AlarmClock {
     }
 
     getCurrentFormattedTime() {
-        let hours = new Date().getHours();
-        let minutes = new Date().getMinutes();
+        let date = new Date();
+        let hours = ('0' + date.getHours()).slice(-2);
+        let minutes = ('0' + date.getMinutes()).slice(-2);
         return `${hours}:${minutes}`;
     }
 
@@ -34,10 +35,10 @@ class AlarmClock {
             if (this.getCurrentFormattedTime() === actualAlarm.time) {
                 actualAlarm.callback();
             }   
-            if (!this.timerId) {
+        }
+        if (!this.timerId) {
             this.timerId = setInterval(() => this.alarmCollection.forEach(checkClock), 1000);
             }
-        }
     }
 
     stop() {
